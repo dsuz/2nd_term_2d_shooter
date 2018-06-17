@@ -9,10 +9,12 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D m_rb2d;
     /// <summary>弾のプレハブ</summary>
     [SerializeField] GameObject m_bulletPrefab;
+    AudioSource m_audioSource;
 
     void Start()
     {
         m_rb2d = GetComponent<Rigidbody2D>();
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(m_bulletPrefab, this.transform.position, Quaternion.identity);  // インスペクターから設定した m_bulletPrefab をインスタンス化する
+            m_audioSource.Play();   // 発射音を鳴らす
         }
     }
 }
