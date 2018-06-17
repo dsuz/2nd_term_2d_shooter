@@ -7,6 +7,8 @@ public class BulletController : MonoBehaviour
     /// <summary>弾の飛ぶ速度</summary>
     [SerializeField] float m_bulletSpeed = 10f;
     Rigidbody2D m_rb2d;
+    /// <summary>ここまで飛んだら弾を消す</summary>
+    [SerializeField] float m_bulletTravelDistance = 20f;
 
     void Start()
     {
@@ -17,6 +19,10 @@ public class BulletController : MonoBehaviour
 
     void Update()
     {
-
+        // 弾の y 座標が m_bulletTravelDistance になるまで飛んだら、弾を消す
+        if (this.transform.position.y > m_bulletTravelDistance)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
