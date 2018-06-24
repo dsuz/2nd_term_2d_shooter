@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D m_rb2d;
     /// <summary>弾のプレハブ</summary>
     [SerializeField] GameObject m_bulletPrefab;
+    /// <summary>ゴッドモード（True の時、無敵モードになる）</summary>
+    [SerializeField] bool m_godMode = false;
+
     AudioSource m_audioSource;
 
     void Start()
@@ -29,6 +32,17 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(m_bulletPrefab, this.transform.position, Quaternion.identity);  // インスペクターから設定した m_bulletPrefab をインスタンス化する
             m_audioSource.Play();   // 発射音を鳴らす
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!m_godMode)
+        {
+            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
