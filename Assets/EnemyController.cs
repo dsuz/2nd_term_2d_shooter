@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject m_bulletPrefab;
     /// <summary>敵が弾を撃つ間隔</summary>
     [SerializeField] float m_shotInterval = 1.5f;
+    /// <summary>爆発エフェクトのプレハブ</summary>
+    [SerializeField] GameObject m_explosionPrefab;
     /// <summary>タイマーとして使う変数</summary>
     float m_timer;
 
@@ -32,6 +34,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<BulletController>())  // 衝突相手のオブジェクトに BulletController が追加されていたら
         {
+            Instantiate(m_explosionPrefab, transform.position, Quaternion.identity);    // 爆発エフェクトを出す
             Destroy(gameObject);    // 自分自身を消す
         }
     }

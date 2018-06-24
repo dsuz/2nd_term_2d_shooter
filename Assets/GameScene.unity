@@ -471,7 +471,7 @@ MonoBehaviour:
   m_moveSpeed: 5
   m_bulletPrefab: {fileID: 1092765330883182, guid: b0644385a3398d740b0a904b15d7b2c3,
     type: 2}
-  m_fireInterval: 0.05
+  m_godMode: 1
 --- !u!50 &850950079
 Rigidbody2D:
   serializedVersion: 4
