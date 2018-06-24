@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212127881647337190}
   - component: {fileID: 50324249926457568}
   - component: {fileID: 114580948311348502}
+  - component: {fileID: 58113206221860702}
   m_Layer: 0
   m_Name: BulletPrefab
   m_TagString: Untagged
@@ -62,6 +63,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58113206221860702
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1092765330883182}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.08
 --- !u!114 &114580948311348502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bulletSpeed: 10
+  m_bulletTravelDistance: 20
 --- !u!212 &212127881647337190
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -27,4 +27,12 @@ public class EnemyController : MonoBehaviour
             m_timer = 0;    // タイマーをリセットする
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<BulletController>())  // 衝突相手のオブジェクトに BulletController が追加されていたら
+        {
+            Destroy(gameObject);    // 自分自身を消す
+        }
+    }
 }
