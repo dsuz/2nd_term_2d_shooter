@@ -17,7 +17,7 @@ public class EnemyBulletController : MonoBehaviour
 
         GameObject m_player = GameObject.FindGameObjectWithTag("Player");
         Vector2 direction = (m_player.transform.position - this.transform.position).normalized;     // プレイヤーのいる方向の単位ベクトルを計算する
-        m_rb2d.AddForce(direction, ForceMode2D.Impulse);    // プレイヤーに向かって弾を飛ばす
+        m_rb2d.AddForce(direction * m_speed, ForceMode2D.Impulse);    // プレイヤーに向かって弾を飛ばす
     }
 
     void Update()
