@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D m_rb2d;
     /// <summary>弾のプレハブ</summary>
     [SerializeField] GameObject m_bulletPrefab;
+    /// <summary>レーザーのプレハブ</summary>
+    [SerializeField] GameObject m_laserPrefab;
+    /// <summary>レーザーのインスタンス</summary>
+    GameObject m_laserInstance;
     /// <summary>ゴッドモード（True の時、無敵モードになる）</summary>
     [SerializeField] bool m_godMode = false;
     /// <summary>メッセージ表示用の Text</summary>
@@ -62,6 +66,19 @@ public class PlayerController : MonoBehaviour
             m_audioSource.Play();   // 発射音を鳴らす
             m_chargeTime = 0f;    // チャージ時間をリセットする
             m_powerGauge.SetPowerGauge(0f); // ゲージをリセットする
+        }
+
+        // 右クリックを押している間、レーザーを出す
+        if (Input.GetButtonDown("Fire2"))
+        {
+            m_laserInstance = Instantiate(m_laserPrefab, this.transform.position, Quaternion.identity);
+            m_laserInstance.transform.SetParent(this.transform);
+        }
+
+        // 右クリックを離したら、レーザーを消す
+        if (Input.GetButtonUp("Fire2"))
+        {
+            Destroy(m_laserInstance);
         }
     }
 

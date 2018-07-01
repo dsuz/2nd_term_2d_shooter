@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<BulletController>())  // 衝突相手のオブジェクトに BulletController が追加されていたら
+        if (collision.gameObject.GetComponent<BulletController>() || collision.gameObject.GetComponent<LaserController>())  // 衝突相手のオブジェクトが弾だったら
         {
             Instantiate(m_explosionPrefab, transform.position, Quaternion.identity);    // 爆発エフェクトを出す
             Destroy(gameObject);    // 自分自身を消す
