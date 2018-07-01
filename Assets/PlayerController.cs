@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject m_bulletPrefab;
     /// <summary>ゴッドモード（True の時、無敵モードになる）</summary>
     [SerializeField] bool m_godMode = false;
+    /// <summary>メッセージ表示用の Text</summary>
+    [SerializeField] Text m_messageText;
+    /// <summary>やられた時の爆発エフェクト</summary>
+    [SerializeField] GameObject m_explosionPrefab;
+    /// <summary>やられた時の爆発音</summary>
+    [SerializeField] AudioClip m_explosionAudioClip;
 
     AudioSource m_audioSource;
 
@@ -18,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rb2d = GetComponent<Rigidbody2D>();
         m_audioSource = GetComponent<AudioSource>();
+        m_messageText.text = "";    // メッセージを消す
     }
 
     void Update()
@@ -41,7 +49,15 @@ public class PlayerController : MonoBehaviour
         {
             if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
             {
-                Destroy(this.gameObject);
+                // 演出を実行する
+                m_messageText.text = "GAME OVER";   // メッセージを表示する
+                Instantiate(m_explosionPrefab, this.transform.position, Quaternion.identity);   // 爆発エフェクトを生成する
+                m_audioSource.PlayOneShot(m_explosionAudioClip);    // 爆発音を鳴らす
+
+                // 後始末
+                m_godMode = true;   // オブジェクトの破棄を遅らせるので、プレイヤーの当たり判定を消す
+                GetComponent<Renderer>().enabled = false;   // オブジェクトの破棄を遅らせるので、プレイヤーの表示を消す
+                Destroy(this.gameObject, m_explosionAudioClip.length);  // 爆発音が鳴り終わったらオブジェクトを破棄する
             }
         }
     }
