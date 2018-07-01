@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_maxChargeTime = 1.5f;
     /// <summary>弾の最大倍率</summary>
     [SerializeField] float m_maxChargeMagnification = 20.0f;
+    /// <summary>チャージのゲージ</summary>
+    [SerializeField] PowerGaugeController m_powerGauge;
+
     AudioSource m_audioSource;
 
     void Start()
@@ -46,6 +49,8 @@ public class PlayerController : MonoBehaviour
         {
             // チャージ時間が最大チャージ時間を超えないように測る
             m_chargeTime = Mathf.Min(m_chargeTime + Time.deltaTime, m_maxChargeTime);
+            // パワーゲージをセットする
+            m_powerGauge.SetPowerGauge(m_chargeTime / m_maxChargeTime);
         }
 
         if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
             go.transform.localScale *= scale;    // チャージ時間に応じて弾を大きくする
             m_audioSource.Play();   // 発射音を鳴らす
             m_chargeTime = 0f;    // チャージ時間をリセットする
+            m_powerGauge.SetPowerGauge(0f); // ゲージをリセットする
         }
     }
 
