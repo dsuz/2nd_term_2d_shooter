@@ -21,6 +21,12 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        // プレイヤーがいないときは何もしない
+        if (!GameObject.FindGameObjectWithTag("Player"))
+        {
+            return;
+        }
+
         m_timer += Time.deltaTime;  // タイマーに、前フレームからの経過時間を足していく
         
         if (m_timer > m_shotInterval)   // タイマーがインターバルを超えたら

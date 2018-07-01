@@ -17,6 +17,12 @@ public class EnemyGenerationController : MonoBehaviour
 
     void Update()
     {
+        // プレイヤーがいないときは何もしない
+        if (!GameObject.FindGameObjectWithTag("Player"))
+        {
+            return;
+        }
+
         m_timer += Time.deltaTime;
 
         if (m_timer > m_enemyGenerationInterval)

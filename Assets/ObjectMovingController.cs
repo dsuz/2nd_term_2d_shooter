@@ -42,8 +42,11 @@ public class ObjectMovingController : MonoBehaviour
         {
             // プレイヤーを追いかける
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            Vector2 direction = (player.transform.position - this.transform.position).normalized;
-            m_rb2d.AddForce(direction * m_speed, ForceMode2D.Force);
+            if (GameObject.FindGameObjectWithTag("Player"))
+            {
+                Vector2 direction = (player.transform.position - this.transform.position).normalized;
+                m_rb2d.AddForce(direction * m_speed, ForceMode2D.Force);
+            }
         }
     }
 }
