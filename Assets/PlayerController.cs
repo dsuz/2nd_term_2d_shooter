@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
     /// <summary>やられた時の爆発音</summary>
     [SerializeField] AudioClip m_explosionAudioClip;
 
+    /// <summary>弾をチャージした時間</summary>
+    float m_chargeTime;
+    /// <summary>最大チャージ時間</summary>
+    [SerializeField] float m_maxChargeTime = 1.5f;
+    /// <summary>弾の最大倍率</summary>
+    [SerializeField] float m_maxChargeMagnification = 20.0f;
     AudioSource m_audioSource;
 
     void Start()
@@ -35,11 +41,21 @@ public class PlayerController : MonoBehaviour
         Vector2 dir = new Vector2(h, v).normalized; // 進行方向の単位ベクトルを作る (dir = direction) 
         m_rb2d.velocity = dir * m_moveSpeed;        // 単位ベクトルにスピードをかけて速度ベクトルにする
 
-        // 左クリックまたはスペースで弾を発射する
-        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+        // 左クリックまたはスペースを押している間、チャージ時間を増やす
+        if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
         {
-            Instantiate(m_bulletPrefab, this.transform.position, Quaternion.identity);  // インスペクターから設定した m_bulletPrefab をインスタンス化する
+            // チャージ時間が最大チャージ時間を超えないように測る
+            m_chargeTime = Mathf.Min(m_chargeTime + Time.deltaTime, m_maxChargeTime);
+        }
+
+        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+        {
+            // チャージ時間に応じた弾の倍率を計算する
+            float scale = m_chargeTime * (m_maxChargeMagnification - 1.0f) / m_maxChargeTime + 1.0f;
+            GameObject go = Instantiate(m_bulletPrefab, this.transform.position, Quaternion.identity);  // インスペクターから設定した m_bulletPrefab をインスタンス化する
+            go.transform.localScale *= scale;    // チャージ時間に応じて弾を大きくする
             m_audioSource.Play();   // 発射音を鳴らす
+            m_chargeTime = 0f;    // チャージ時間をリセットする
         }
     }
 
