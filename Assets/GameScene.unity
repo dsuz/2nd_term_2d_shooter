@@ -1319,6 +1319,18 @@ MonoBehaviour:
     type: 2}
   m_bossAnchor: {fileID: 135074348}
   m_movingTime: 20
+  m_bulletPrefab: {fileID: 1099128367022678, guid: 842903659db40e64a849fdab5fb65d2c,
+    type: 2}
+  m_muzzles:
+  - {fileID: 168832449}
+  - {fileID: 1547161362}
+  - {fileID: 1473629275}
+  - {fileID: 764318767}
+  - {fileID: 1307795536}
+  - {fileID: 1890547906}
+  - {fileID: 1526998186}
+  - {fileID: 609786048}
+  m_shotInterval: 0.1
 --- !u!1 &1473629274
 GameObject:
   m_ObjectHideFlags: 0

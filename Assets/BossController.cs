@@ -14,9 +14,16 @@ public class BossController : MonoBehaviour
     [SerializeField] Transform m_bossAnchor;
     /// <summary>ボスの出現時間（停止地点までたどり着く時間）</summary>
     [SerializeField] float m_movingTime = 20.0f;
+    /// <summary>弾のプレハブ</summary>
+    [SerializeField] GameObject m_bulletPrefab;
+    /// <summary>弾の発射ポイント</summary>
+    [SerializeField] Transform[] m_muzzles;
+    /// <summary>弾の発射間隔（単位: 秒）</summary>
+    [SerializeField] float m_shotInterval = 0.1f;
     /// <summary>ボスの生死フラグ</summary>
     bool m_isDead = false;
-
+    /// <summary>弾の発射タイマー</summary>
+    float m_shotTimer;
 
     void Start()
     {
@@ -26,7 +33,21 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
+        // 弾を出させる
 
+        // 既にやられている場合は何もしない
+        if (m_isDead) return;
+
+        // タイマーが m_shotInterval を超えたら各発射ポイントから弾を出す
+        m_shotTimer += Time.deltaTime;
+        if (m_shotTimer > m_shotInterval)
+        {
+            foreach (var muzzle in m_muzzles)
+            {
+                Instantiate(m_bulletPrefab, muzzle.position, Quaternion.identity);
+            }
+            m_shotTimer = 0f;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,7 +73,7 @@ public class BossController : MonoBehaviour
             GameObject go = Instantiate(m_bigExplosion, this.transform.position + new Vector3(0, 0, -5f), Quaternion.identity);   // position はカメラに寄せる
             // 爆発エフェクトのループをオンにする
             ParticleSystem[] psArray = go.transform.GetComponentsInChildren<ParticleSystem>();
-            foreach(var ps in psArray)
+            foreach (var ps in psArray)
             {
                 var psMain = ps.main;
                 psMain.loop = true;
@@ -62,7 +83,7 @@ public class BossController : MonoBehaviour
             GoNextScene(currentSceneName);
         }
     }
-    
+
     /// <summary>
     /// フェードアウト/フェードインを伴ってシーンを遷移させる
     /// </summary>
