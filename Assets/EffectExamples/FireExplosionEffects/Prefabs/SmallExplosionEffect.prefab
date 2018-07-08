@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b8ab4ccf1f5464dbcaeb5d874f5bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_duration: 0
+  m_timer: 0
 --- !u!198 &198000010217891986
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -10244,7 +10246,7 @@ ParticleSystem:
   serializedVersion: 5
   lengthInSec: 4
   simulationSpeed: 2
-  stopAction: 0
+  stopAction: 2
   looping: 0
   prewarm: 0
   playOnAwake: 1
