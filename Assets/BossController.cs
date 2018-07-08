@@ -51,6 +51,18 @@ public class BossController : MonoBehaviour
                 var psMain = ps.main;
                 psMain.loop = true;
             }
+            // シーンを遷移させる
+            string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;   // とりあえず現在のシーンに遷移させる
+            GoNextScene(currentSceneName);
         }
+    }
+    
+    /// <summary>
+    /// フェードアウト/フェードインを伴ってシーンを遷移させる
+    /// </summary>
+    /// <param name="sceneName">遷移先のシーン名</param>
+    void GoNextScene(string sceneName)
+    {
+        Initiate.Fade(sceneName, Color.black, 0.1f);
     }
 }
