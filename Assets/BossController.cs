@@ -10,12 +10,18 @@ public class BossController : MonoBehaviour
     [SerializeField] GameObject m_smallExplosion;
     /// <summary>やられた時の爆発エフェクト</summary>
     [SerializeField] GameObject m_bigExplosion;
+    /// <summary>ボスの停止地点</summary>
+    [SerializeField] Transform m_bossAnchor;
+    /// <summary>ボスの出現時間（停止地点までたどり着く時間）</summary>
+    [SerializeField] float m_movingTime = 20.0f;
     /// <summary>ボスの生死フラグ</summary>
     bool m_isDead = false;
 
+
     void Start()
     {
-
+        // ボスを m_bossAnchor まで動かす
+        iTween.MoveTo(this.gameObject, m_bossAnchor.position, m_movingTime);
     }
 
     void Update()
