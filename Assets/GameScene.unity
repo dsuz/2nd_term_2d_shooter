@@ -1127,7 +1127,7 @@ GameObject:
   - component: {fileID: 1035718904}
   - component: {fileID: 1035718903}
   m_Layer: 0
-  m_Name: Boss
+  m_Name: BossGenerationSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

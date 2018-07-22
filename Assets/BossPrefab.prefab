@@ -339,7 +339,7 @@ MonoBehaviour:
   - {fileID: 4802999428207938}
   - {fileID: 4754862021541786}
   - {fileID: 4545266424707430}
-  m_shotInterval: 0.1
+  m_shotInterval: 1
 --- !u!212 &212944679997773392
 SpriteRenderer:
   m_ObjectHideFlags: 1
