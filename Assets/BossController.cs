@@ -27,6 +27,11 @@ public class BossController : MonoBehaviour
 
     void Start()
     {
+        // プレハブ化した時はシーン内のオブジェクトをアサインできないので、スクリプトでアサインする
+        if (!m_bossAnchor)
+        {
+            m_bossAnchor = GameObject.Find("BossAnchor").transform;
+        }
         // ボスを m_bossAnchor まで動かす
         iTween.MoveTo(this.gameObject, m_bossAnchor.position, m_movingTime);
     }
