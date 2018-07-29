@@ -100,4 +100,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    // オブジェクトが破棄 (destroy) される時にタイトルに戻る
+    private void OnDestroy()
+    {
+        Initiate.Fade("Title", Color.black, 1f);
+    }
 }
