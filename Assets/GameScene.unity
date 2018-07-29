@@ -426,7 +426,7 @@ MonoBehaviour:
   - {fileID: 650765887}
   - {fileID: 372863425}
   - {fileID: 1372133937}
-  m_enemyPrefab: {fileID: 1485050669945390, guid: e9a1200c2ba5a2243969b29795a2b0c4,
+  m_enemyPrefab: {fileID: 1485050669945390, guid: a2f47a9c80de02f46976e4cd2533bc8f,
     type: 2}
   m_stopScroll: 0
   m_scrollController: {fileID: 0}
