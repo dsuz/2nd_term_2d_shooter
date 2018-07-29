@@ -97,13 +97,14 @@ public class PlayerController : MonoBehaviour
                 m_godMode = true;   // オブジェクトの破棄を遅らせるので、プレイヤーの当たり判定を消す
                 GetComponent<Renderer>().enabled = false;   // オブジェクトの破棄を遅らせるので、プレイヤーの表示を消す
                 Destroy(this.gameObject, m_explosionAudioClip.length);  // 爆発音が鳴り終わったらオブジェクトを破棄する
+                StartCoroutine(DelayedLoadScene("Title", m_explosionAudioClip.length - 0.1f));
             }
         }
     }
 
-    // オブジェクトが破棄 (destroy) される時にタイトルに戻る
-    private void OnDestroy()
+    IEnumerator DelayedLoadScene(string sceneName, float delayTime)
     {
-        Initiate.Fade("Title", Color.black, 1f);
+        yield return new WaitForSeconds(delayTime);
+        Initiate.Fade(sceneName, Color.black, 1f);
     }
 }
