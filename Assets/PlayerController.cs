@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,13 +44,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");   // 垂直方向の入力を取得する
-        float v = Input.GetAxisRaw("Vertical");     // 水平方向の入力を取得する
+        float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");   // 垂直方向の入力を取得する
+        float v = CrossPlatformInputManager.GetAxisRaw("Vertical");     // 水平方向の入力を取得する
         Vector2 dir = new Vector2(h, v).normalized; // 進行方向の単位ベクトルを作る (dir = direction) 
         m_rb2d.velocity = dir * m_moveSpeed;        // 単位ベクトルにスピードをかけて速度ベクトルにする
 
         // 左クリックまたはスペースを押している間、チャージ時間を増やす
-        if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+        if (CrossPlatformInputManager.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
         {
             // チャージ時間が最大チャージ時間を超えないように測る
             m_chargeTime = Mathf.Min(m_chargeTime + Time.deltaTime, m_maxChargeTime);
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
             m_powerGauge.SetPowerGauge(m_chargeTime / m_maxChargeTime);
         }
 
-        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+        if (CrossPlatformInputManager.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
         {
             // チャージ時間に応じた弾の倍率を計算する
             float scale = m_chargeTime * (m_maxChargeMagnification - 1.0f) / m_maxChargeTime + 1.0f;
@@ -69,14 +70,14 @@ public class PlayerController : MonoBehaviour
         }
 
         // 右クリックを押している間、レーザーを出す
-        if (Input.GetButtonDown("Fire2"))
+        if (CrossPlatformInputManager.GetButtonDown("Fire2"))
         {
             m_laserInstance = Instantiate(m_laserPrefab, this.transform.position, Quaternion.identity);
             m_laserInstance.transform.SetParent(this.transform);
         }
 
         // 右クリックを離したら、レーザーを消す
-        if (Input.GetButtonUp("Fire2"))
+        if (CrossPlatformInputManager.GetButtonUp("Fire2"))
         {
             Destroy(m_laserInstance);
         }
