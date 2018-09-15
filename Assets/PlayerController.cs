@@ -33,6 +33,11 @@ public class PlayerController : MonoBehaviour
     /// <summary>チャージのゲージ</summary>
     [SerializeField] PowerGaugeController m_powerGauge;
 
+    /// <summary>バリア</summary>
+    [SerializeField] GameObject m_barrierPrefab;
+    /// <summary>バリア</summary>
+    GameObject m_barrier;
+
     AudioSource m_audioSource;
 
     void Start()
@@ -80,6 +85,36 @@ public class PlayerController : MonoBehaviour
         if (CrossPlatformInputManager.GetButtonUp("Fire2"))
         {
             Destroy(m_laserInstance);
+        }
+
+        // バリアを制御する
+        if (CrossPlatformInputManager.GetButtonDown("Fire3"))
+        {
+            if (!m_barrier)
+            {
+                m_barrier = Instantiate(m_barrierPrefab, transform.position + m_barrierPrefab.transform.position, Quaternion.identity);
+            }
+
+            if (!m_barrier.activeSelf)
+            {
+                m_barrier.SetActive(true);
+            }
+        }
+
+        if (CrossPlatformInputManager.GetButton("Fire3"))
+        {
+            if (m_barrier.activeSelf)
+            {
+                m_barrier.transform.position = this.transform.position + m_barrierPrefab.transform.position;
+            }
+        }
+
+        if (CrossPlatformInputManager.GetButtonUp("Fire3"))
+        {
+            if (m_barrier.activeSelf)
+            {
+                m_barrier.SetActive(false);
+            }
         }
     }
 

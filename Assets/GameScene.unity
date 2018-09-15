@@ -913,6 +913,8 @@ MonoBehaviour:
   m_maxChargeTime: 1.5
   m_maxChargeMagnification: 20
   m_powerGauge: {fileID: 6144231}
+  m_barrierPrefab: {fileID: 1192035527313554, guid: eeccadd9f18204144a925b8e02f2f5cb,
+    type: 2}
 --- !u!50 &850950079
 Rigidbody2D:
   serializedVersion: 4
@@ -1150,11 +1152,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
@@ -2208,7 +2210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2071423120
 RectTransform:
   m_ObjectHideFlags: 0
