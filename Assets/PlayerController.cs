@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject m_barrierPrefab;
     /// <summary>バリア</summary>
     GameObject m_barrier;
+    /// <summary>バリアゲージ</summary>
+    [SerializeField] Slider m_barrierGauge;
+    [SerializeField] float m_barrierGaugeIncreaseSpeed = 1.0f;
+    [SerializeField] float m_barrierGaugeDecreaseSpeed = .7f;
 
     AudioSource m_audioSource;
 
@@ -45,6 +49,10 @@ public class PlayerController : MonoBehaviour
         m_rb2d = GetComponent<Rigidbody2D>();
         m_audioSource = GetComponent<AudioSource>();
         m_messageText.text = "";    // メッセージを消す
+
+        // バリアを初期化する
+        m_barrier = Instantiate(m_barrierPrefab, transform.position + m_barrierPrefab.transform.position, Quaternion.identity);
+        m_barrier.SetActive(false);
     }
 
     void Update()
@@ -90,12 +98,7 @@ public class PlayerController : MonoBehaviour
         // バリアを制御する
         if (CrossPlatformInputManager.GetButtonDown("Fire3"))
         {
-            if (!m_barrier)
-            {
-                m_barrier = Instantiate(m_barrierPrefab, transform.position + m_barrierPrefab.transform.position, Quaternion.identity);
-            }
-
-            if (!m_barrier.activeSelf)
+            if (!m_barrier.activeSelf && m_barrierGauge.value < m_barrierGauge.maxValue)
             {
                 m_barrier.SetActive(true);
             }
@@ -106,6 +109,12 @@ public class PlayerController : MonoBehaviour
             if (m_barrier.activeSelf)
             {
                 m_barrier.transform.position = this.transform.position + m_barrierPrefab.transform.position;
+                m_barrierGauge.value += Time.deltaTime * m_barrierGaugeIncreaseSpeed;
+            }
+
+            if (m_barrierGauge.value > m_barrierGauge.maxValue * 0.98f)
+            {
+                m_barrier.SetActive(false);
             }
         }
 
@@ -115,6 +124,11 @@ public class PlayerController : MonoBehaviour
             {
                 m_barrier.SetActive(false);
             }
+        }
+
+        if (!m_barrier.activeSelf && m_barrierGauge.value > m_barrierGauge.minValue)
+        {
+            m_barrierGauge.value -= Time.deltaTime * m_barrierGaugeDecreaseSpeed;
         }
     }
 
